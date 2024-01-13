@@ -10,13 +10,13 @@ jest.mock('next/navigation', () => ({
 }));
 
 test('renders SearchBar component', () => {
-  render(<SearchBar query="" />);
+  render(<SearchBar query="AAPL" />);
   const labelElement = screen.getByText(/Enter Ticker Symbol/i);
   expect(labelElement).toBeInTheDocument();
 });
 
 test('searches when button is clicked', () => {
-  render(<SearchBar query="" />);
+  render(<SearchBar query="AAPL" />);
   const inputElement = screen.getByPlaceholderText(/US stock ticker/i);
   const buttonElement = screen.getByText(/Search/i);
 

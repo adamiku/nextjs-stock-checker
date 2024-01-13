@@ -17,19 +17,23 @@ function SearchBar({ query }: Props) {
   };
 
   return (
-    <>
+    <div>
       <label htmlFor="searchInput">Enter Ticker Symbol</label>
       <br />
-      <input
-        placeholder="US stock ticker"
-        defaultValue={query}
-        id="searchInput"
-        name="search"
-        className="text-black"
-        ref={inputRef}
-      />
-      <button onClick={(event) => searchQuery()}>Search</button>
-    </>
+      <div className="flex gap-5">
+        <input
+          placeholder="US stock ticker"
+          defaultValue={query}
+          id="searchInput"
+          name="search"
+          className="text-black p-1 pl-3 rounded-lg"
+          ref={inputRef}
+        />
+        <button onClick={(event) => searchQuery()} className="searchBtn">
+          Search
+        </button>
+      </div>
+    </div>
   );
 }
 
