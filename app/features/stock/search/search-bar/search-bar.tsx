@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 type Props = {
   query: string;
@@ -16,20 +16,29 @@ function SearchBar({ query }: Props) {
     router.push(`${pathName}?query=${inputRef.current?.value}`);
   };
 
+  useEffect(() => {
+    if (inputRef.current && query !== inputRef.current.value && query) {
+      inputRef.current.value = query;
+    }
+  }, [query]);
+
   return (
     <div>
       <label htmlFor="searchInput">Enter Ticker Symbol</label>
       <br />
-      <div className="flex gap-5">
+      <div className="flex justify-between gap-5 md:justify-normal">
         <input
           placeholder="US stock ticker"
           defaultValue={query}
           id="searchInput"
           name="search"
-          className="text-black p-1 pl-3 rounded-lg"
+          className="text-black p-1 pl-3 rounded-lg flex-1 md:flex-grow-0"
           ref={inputRef}
         />
-        <button onClick={(event) => searchQuery()} className="searchBtn">
+        <button
+          onClick={(event) => searchQuery()}
+          className="searchBtn self-end"
+        >
           Search
         </button>
       </div>
