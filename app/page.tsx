@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import Chart from './features/chart';
 import Stock from './features/stock';
 import Recommendation from './features/stock/recommendation/recommendation';
 import SeachResult from './features/stock/search/seach-result/search-result';
 import SearchBar from './features/stock/search/search-bar/search-bar';
+import { StockSkeleton } from './features/ui/skeletons';
 
 type Props = {
   searchParams: {
@@ -16,7 +18,9 @@ export default function Home({ searchParams: { query } }: Props) {
       <section className="flex-1">
         <Stock>
           <SearchBar query={query} />
-          <SeachResult />
+          <Suspense key={query} fallback={<StockSkeleton />}>
+            <SeachResult query={query} />
+          </Suspense>
           <Recommendation />
         </Stock>
       </section>
