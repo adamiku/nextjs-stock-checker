@@ -25,3 +25,14 @@ export function StockSkeleton() {
     </div>
   );
 }
+
+export function RecommendationSkeleton() {
+  return (
+    <div className="flex gap-3">
+      <div className="h-10 w-20 rounded-lg bg-gray-100"></div>
+      <div className="h-10 w-20 rounded-lg bg-gray-100"></div>
+      <div className="h-10 w-20 rounded-lg bg-gray-100"></div>
+      <div className="h-10 w-20 rounded-lg bg-gray-100"></div>
+    </div>
+  );
+}
