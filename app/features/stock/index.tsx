@@ -1,15 +1,7 @@
-import Recommendation from './recommendation/recommendation';
-import SeachResult from './search/seach-result/search-result';
-import SearchBar from './search/search-bar/search-bar';
+import { PropsWithChildren } from 'react';
 
-function Stock() {
-  return (
-    <>
-      <SearchBar />
-      <SeachResult />
-      <Recommendation />
-    </>
-  );
+function Stock({ children }: PropsWithChildren) {
+  return <>{children}</>;
 }
 
 export default Stock;
