@@ -1,13 +1,15 @@
+import { cache } from 'react';
+
 export const api = {
-  get: async <T>(url: string, params?: string): Promise<T | null> => {
+  get: cache(async <T>(url: string, params?: string): Promise<T | null> => {
     try {
       // test loading states with skeletons
-      await new Promise((res) => setTimeout(res, 1000));
+      // await new Promise((res) => setTimeout(res, 1000));
       const searchParams = new URLSearchParams(params);
       searchParams.set('token', process.env.FINNHUB_API_TOKEN ?? '');
 
       const response = await fetch(
-        `${process.env.FINNHUB_API_URL}/${url}?${searchParams.toString()}`,
+        `${process.env.FINNHUB_API_URL}${url}?${searchParams.toString()}`,
         {
           method: 'GET'
         }
@@ -26,11 +28,11 @@ export const api = {
       // handle network errors
       return null;
     }
-  }
+  })
 };
 
 export const alphaApi = {
-  get: async <T>(url: string, params?: string): Promise<T | null> => {
+  get: cache(async <T>(url: string, params?: string): Promise<T | null> => {
     try {
       // test loading states with skeletons
       // await new Promise((res) => setTimeout(res, 3000));
@@ -59,5 +61,5 @@ export const alphaApi = {
       // handle network errors
       return null;
     }
-  }
+  })
 };

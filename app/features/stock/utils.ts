@@ -11,7 +11,7 @@ type CachedStocks = undefined | StocksDictionary;
 
 let cachedStocks: CachedStocks;
 
-export async function verifyAndGetStock(symbol: string) {
+export async function getQueriedStock(symbol: string) {
   const selectedStock =
     cachedStocks?.[symbol.toUpperCase() as keyof StockModel];
 

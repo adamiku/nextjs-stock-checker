@@ -5,7 +5,7 @@ import { StockModel } from './features/stock/models';
 import Recommendation from './features/stock/recommendation/recommendation';
 import SeachResult from './features/stock/search/seach-result/search-result';
 import SearchBar from './features/stock/search/search-bar/search-bar';
-import { verifyAndGetStock } from './features/stock/utils';
+import { getQueriedStock } from './features/stock/utils';
 import { RecommendationSkeleton, StockSkeleton } from './features/ui/skeletons';
 
 type Props = {
@@ -14,17 +14,20 @@ type Props = {
   };
 };
 
-type VerifiedStockState = null | undefined | '' | StockModel;
+type VerifiedStockState = null | undefined | StockModel;
 
 export default async function Home({ searchParams: { query } }: Props) {
   const verifiedStock: VerifiedStockState = query
-    ? await verifyAndGetStock(query)
-    : '';
+    ? await getQueriedStock(query)
+    : undefined;
+
   return (
     <main className="flex min-h-screen flex-col gap-5 p-8 lg:flex-row mt-10">
       <section className="flex-1 flex flex-col gap-5">
         <SearchBar query={query} />
-        {verifiedStock && (
+        {/* empty string query could be handled separately */}
+        {!query && <div>Use the search bar to receive stock information</div>}
+        {query && verifiedStock && (
           <Stock>
             <Suspense key={query + 'result'} fallback={<StockSkeleton />}>
               <SeachResult stock={verifiedStock} />
@@ -38,7 +41,8 @@ export default async function Home({ searchParams: { query } }: Props) {
             </Suspense>
           </Stock>
         )}
-        {verifiedStock === undefined && (
+
+        {query && verifiedStock === undefined && (
           <div>
             No stock belongs to the provided ticker:{' '}
             <span className="border border-solid border-red-800 p-2">
@@ -46,16 +50,19 @@ export default async function Home({ searchParams: { query } }: Props) {
             </span>
           </div>
         )}
+
         {verifiedStock === null && (
-          <div>Something went wrong, server could not fetch tickers</div>
-        )}
-        {verifiedStock === '' && (
-          <div>Use the search bar to receive stock information</div>
+          <div>
+            Something went wrong, server could not fetch tickers, please try
+            again
+          </div>
         )}
       </section>
-      <section className="flex-1">
-        {verifiedStock && <Chart symbol={verifiedStock.symbol} />}
-      </section>
+      {query && verifiedStock && (
+        <section className="flex-1">
+          <Chart symbol={verifiedStock.symbol} />
+        </section>
+      )}
     </main>
   );
 }
