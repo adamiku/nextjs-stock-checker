@@ -2,7 +2,7 @@ export const api = {
   get: async <T>(url: string, params?: string): Promise<T | null> => {
     try {
       // test loading states with skeletons
-      // await new Promise((res) => setTimeout(res, 5000));
+      await new Promise((res) => setTimeout(res, 5000));
       const searchParams = new URLSearchParams(params);
       searchParams.set('token', process.env.FINNHUB_API_TOKEN ?? '');
 
