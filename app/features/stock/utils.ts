@@ -11,7 +11,9 @@ type CachedStocks = undefined | StocksDictionary;
 
 let cachedStocks: CachedStocks;
 
-export async function getQueriedStock(symbol: string) {
+export async function getQueriedStock(
+  symbol: string
+): Promise<null | undefined | StockModel> {
   const selectedStock =
     cachedStocks?.[symbol.toUpperCase() as keyof StockModel];
 

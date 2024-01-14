@@ -36,3 +36,15 @@ export function RecommendationSkeleton() {
     </div>
   );
 }
+
+export function StockResultSkeleton() {
+  return (
+    <div className="flex">
+      <div className="flex flex-col gap-5">
+        <StockSkeleton />
+        <RecommendationSkeleton />
+      </div>
+      <div></div>
+    </div>
+  );
+}
