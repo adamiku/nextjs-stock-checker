@@ -1,4 +1,5 @@
 import { api } from '@/app/lib/api';
+import { ApiRouter } from '@/app/lib/routes';
 import Link from 'next/link';
 
 type Props = {
@@ -6,7 +7,7 @@ type Props = {
 };
 
 async function Recommendation({ symbol }: Props) {
-  const response = await api.get<string[]>('/stock/peers', `symbol=${symbol}`);
+  const response = await api.get<string[]>(ApiRouter.PEERS, `symbol=${symbol}`);
 
   return (
     <article className="flex flex-wrap gap-3">

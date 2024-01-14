@@ -1,4 +1,5 @@
 import { api } from '@/app/lib/api';
+import { ApiRouter } from '@/app/lib/routes';
 import { QuoteModel } from '../../models';
 
 type Props = {
@@ -6,7 +7,10 @@ type Props = {
 };
 
 async function CurrentPrice({ symbol }: Props) {
-  const response = await api.get<QuoteModel>('/quote', `symbol=${symbol}`);
+  const response = await api.get<QuoteModel>(
+    ApiRouter.QUOTE,
+    `symbol=${symbol}`
+  );
   if (!response) {
     return <span>Current price is not available</span>;
   }

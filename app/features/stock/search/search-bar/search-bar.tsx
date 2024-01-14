@@ -13,6 +13,7 @@ function SearchBar({ query }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const searchQuery = () => {
+    if (!inputRef.current?.value) return;
     router.push(`${pathName}?query=${inputRef.current?.value}`);
   };
 
@@ -21,6 +22,21 @@ function SearchBar({ query }: Props) {
       inputRef.current.value = query;
     }
   }, [query]);
+
+  useEffect(() => {
+    const keyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        searchQuery();
+      }
+    };
+
+    document.addEventListener('keydown', keyDownHandler);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, []);
 
   return (
     <div>

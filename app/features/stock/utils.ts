@@ -1,4 +1,5 @@
 import { api } from '@/app/lib/api';
+import { ApiRouter } from '@/app/lib/routes';
 import { groupBy } from 'lodash-es';
 import { StockModel } from './models';
 
@@ -23,7 +24,7 @@ export async function getQueriedStock(
   }
 
   // TODO - OPTIMIZATION cache it locally as the response is more than 2MB so it cannot be cached by default on network level, groupBy symbol so lookup will be O(1)
-  const response = await api.get<StockModel[]>('/stock/symbol', 'exchange=US');
+  const response = await api.get<StockModel[]>(ApiRouter.SYMBOL, 'exchange=US');
 
   // handle api errors
   if (!response) return null;

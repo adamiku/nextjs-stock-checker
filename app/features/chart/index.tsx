@@ -1,4 +1,5 @@
 import { alphaApi } from '@/app/lib/api';
+import { AlphaApiRouter } from '@/app/lib/routes';
 import { differenceInDays } from 'date-fns';
 import { OHLCPriceModelByDate, OHLCPriceModelByDateResponse } from './models';
 import PriceChart from './price-chart/price-chart';
@@ -9,7 +10,7 @@ type Props = {
 
 async function Chart({ symbol }: Props) {
   const data = await alphaApi.get<OHLCPriceModelByDateResponse>(
-    '/query',
+    AlphaApiRouter.OHLC,
     `function=TIME_SERIES_MONTHLY&symbol=${symbol}`
   );
   if (!data) return <div>There is no historical data for {symbol}</div>;
