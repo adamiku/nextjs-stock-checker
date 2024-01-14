@@ -7,7 +7,7 @@ const stocksFilePath = path.join(process.cwd(), 'json/stocks.json');
 
 export async function verifyAndGetStock(symbol: string) {
   const data = await fsPromises.readFile(stocksFilePath);
-  const stocks = JSON.parse(data);
+  const stocks = JSON.parse(data.toString());
   if (stocks) {
     return getStockBySymbol(symbol, stocks);
   }

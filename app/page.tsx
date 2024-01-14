@@ -21,7 +21,7 @@ export default async function Home({ searchParams: { query } }: Props) {
     ? await verifyAndGetStock(query)
     : '';
   return (
-    <main className="flex min-h-screen flex-col gap-5 p-8 md:p-16 md:flex-row">
+    <main className="flex min-h-screen flex-col gap-5 p-8 lg:flex-row mt-10">
       <section className="flex-1 flex flex-col gap-5">
         <SearchBar query={query} />
         {verifiedStock && (
@@ -54,7 +54,7 @@ export default async function Home({ searchParams: { query } }: Props) {
         )}
       </section>
       <section className="flex-1">
-        <Chart />
+        {verifiedStock && <Chart symbol={verifiedStock.symbol} />}
       </section>
     </main>
   );
