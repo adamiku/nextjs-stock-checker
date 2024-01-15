@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 
 type Props = {
   query: string;
@@ -11,6 +11,11 @@ function SearchBar({ query }: Props) {
   const router = useRouter();
   const pathName = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    searchQuery();
+  };
 
   const searchQuery = () => {
     if (!inputRef.current?.value) return;
@@ -27,11 +32,9 @@ function SearchBar({ query }: Props) {
     const keyDownHandler = (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
         event.preventDefault();
-
         searchQuery();
       }
     };
-
     document.addEventListener('keydown', keyDownHandler);
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
@@ -42,7 +45,10 @@ function SearchBar({ query }: Props) {
     <div>
       <label htmlFor="searchInput">Enter Ticker Symbol</label>
       <br />
-      <div className="flex justify-between gap-5 md:justify-normal">
+      <form
+        onSubmit={onSubmit}
+        className="flex justify-between gap-5 md:justify-normal"
+      >
         <input
           placeholder="US stock ticker"
           defaultValue={query}
@@ -51,13 +57,8 @@ function SearchBar({ query }: Props) {
           className="text-black p-1 pl-3 rounded-lg flex-1 md:flex-grow-0"
           ref={inputRef}
         />
-        <button
-          onClick={(event) => searchQuery()}
-          className="searchBtn self-end"
-        >
-          Search
-        </button>
-      </div>
+        <button className="searchBtn self-end">Search</button>
+      </form>
     </div>
   );
 }
