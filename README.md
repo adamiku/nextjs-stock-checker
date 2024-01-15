@@ -63,6 +63,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 - create storybook
 - lazy load chart related code
 - optimize caching for the heavy ticker api response and improve lookup by restructuring the response data
+- create an adapter layer for different providers so we could switch easily from one provider to another
 - to be able to utilize static site rendering and partial prerendering (new feature of Next.js) the url structure could be refactored
 - create a Contribute.md to highlight how someone can contribute to the project
-- Dockerize if it is needed
+- Dockerize the application if it is needed
