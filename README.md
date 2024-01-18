@@ -67,3 +67,5 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 - to be able to utilize static site rendering and partial prerendering (new feature of Next.js) the url structure could be refactored
 - create a Contribute.md to highlight how someone can contribute to the project
 - Dockerize the application if it is needed
+- add proper CI/CD (e.g.: github actions)
+- add client side logging like [Sentry](https://sentry.io/welcome/)
